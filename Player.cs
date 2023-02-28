@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
   private float _jumpEndTime;
+  [SerializeField] private float _horizontalVelocity = 3;
   [SerializeField] private float _jumpVelocity = 5;
   [SerializeField] private float _jumpDuration = 0.5f;
   public bool IsGrounded;
@@ -38,7 +39,7 @@ public class Player : MonoBehaviour
     if (Input.GetButton("Jump") && _jumpEndTime > Time.time)
       vertical = _jumpVelocity;
 
-
+    hortizontal *= _horizontalVelocity;
     rb.velocity = new Vector2(hortizontal, vertical);
   }
 }
