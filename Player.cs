@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+  // Cached & Serialized Variables
   float _jumpEndTime;
   [SerializeField] float _horizontalVelocity = 3;
   [SerializeField] float _jumpVelocity = 5;
@@ -67,3 +68,4 @@ public class Player : MonoBehaviour
       _spriteRenderer.flipX = true;
   }
 }
+
