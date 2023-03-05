@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
 
     public bool IsGrounded;
     SpriteRenderer _spriteRenderer;
+    private AudioSource _audioSource;
     float _hortizontal;
     Animator _animator;
     int _jumpsRemaining;
@@ -23,6 +24,7 @@ public class Player : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        _audioSource = GetComponent<AudioSource>();
     }
 
     void OnDrawGizmos()
@@ -65,6 +67,7 @@ public class Player : MonoBehaviour
             {
               _jumpEndTime = Time.time + _jumpDuration;
               _jumpsRemaining--;
+              _audioSource.Play();
             }
 
         if (Input.GetButton("Jump") && _jumpEndTime > Time.time)
