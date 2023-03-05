@@ -15,16 +15,18 @@ public class Player : MonoBehaviour
 
     public bool IsGrounded;
     SpriteRenderer _spriteRenderer;
-    private AudioSource _audioSource;
+    AudioSource _audioSource;
     float _hortizontal;
     Animator _animator;
     int _jumpsRemaining;
+    Rigidbody2D _rigidbody2D;
 
   void Awake()
     {
         _animator = GetComponent<Animator>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _audioSource = GetComponent<AudioSource>();
+        _rigidbody2D = GetComponent<Rigidbody2D>();
     }
 
     void OnDrawGizmos()
@@ -60,13 +62,15 @@ public class Player : MonoBehaviour
 
         _hortizontal = Input.GetAxis("Horizontal");
         Debug.Log(_hortizontal);
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        Rigidbody2D rb = _rigidbody2D;
         var vertical = rb.velocity.y;
 
         if (Input.GetButtonDown("Jump") && _jumpsRemaining > 0)
             {
               _jumpEndTime = Time.time + _jumpDuration;
               _jumpsRemaining--;
+            _audioSource.pitch = _jumpsRemaining > 0 ? 1 : 1.5f;
+
               _audioSource.Play();
             }
 
