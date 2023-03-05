@@ -5,29 +5,40 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-  // Cached & Serialized Variables
   float _jumpEndTime;
   [SerializeField] float _horizontalVelocity = 3;
   [SerializeField] float _jumpVelocity = 5;
   [SerializeField] float _jumpDuration = 0.5f;
   [SerializeField] Sprite _jumpSprite;
   [SerializeField] LayerMask _layerMask;
+  [SerializeField] float _footOffset = 0.35f;
+
   public bool IsGrounded;
-  Sprite _defaultSprite;
   SpriteRenderer _spriteRenderer;
   float _hortizontal;
   Animator _animator;
 
-  void Awake() {
+
+  void Awake() 
+  {
     _animator = GetComponent<Animator>();
     _spriteRenderer = GetComponent<SpriteRenderer>();
-    _defaultSprite = _spriteRenderer.sprite;
   }
 
-  void OnDrawGizmos() {
+  void OnDrawGizmos() 
+  {
     SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-    Vector2 origin = new Vector2(transform.position.x, transform.position.y - spriteRenderer.bounds.extents.y);
     Gizmos.color = Color.red;
+
+    Vector2 origin = new Vector2(transform.position.x, transform.position.y - spriteRenderer.bounds.extents.y);
+    Gizmos.DrawLine(origin, origin + Vector2.down * 0.1f);
+    
+    // Draw Left Foot
+    origin = new Vector2(transform.position.x - _footOffset, transform.position.y - spriteRenderer.bounds.extents.y);
+    Gizmos.DrawLine(origin, origin + Vector2.down * 0.1f);
+
+        // Draw Right Foot
+    origin = new Vector2(transform.position.x + _footOffset, transform.position.y - spriteRenderer.bounds.extents.y);
     Gizmos.DrawLine(origin, origin + Vector2.down * 0.1f);
   }
   
